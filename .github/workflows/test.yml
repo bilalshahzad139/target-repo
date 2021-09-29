@@ -24,10 +24,12 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
+          echo 'hello world-${{env.BRNCH_NAME}}' > abc.txt
           git config --global user.email "bilal.shahzad@yahoo.com"
           git config --global user.name "Bilal Shahzad"
           git checkout -b ${{env.BRNCH_NAME}} main && git branch -a
-          git commit --allow-empty -m "testing"
+          git add .
+          git commit -m "testing"
           git push --set-upstream origin ${{env.BRNCH_NAME}}
                     
       - name: pull-request
