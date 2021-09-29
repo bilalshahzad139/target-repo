@@ -29,5 +29,6 @@ jobs:
           git checkout -b ${{env.BRNCH_NAME}} main && git branch -a
           git commit --allow-empty -m "testing"
           git push --set-upstream origin ${{env.BRNCH_NAME}}
+          gh pr create -B "main" --title "The bug is fixed" --body "Everything works again"
 
 
