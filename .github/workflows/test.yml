@@ -43,7 +43,9 @@ jobs:
           pr_title: "[Example] Simple demo"
       
       - name: Enable Auto Merge
-        run: gh pr merge ${{steps.open-pr.outputs.pr_number}} --auto
+        run: |
+          gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
+          gh pr merge ${{steps.open-pr.outputs.pr_number}} --auto
      
 
 
