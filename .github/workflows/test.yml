@@ -25,29 +25,17 @@ jobs:
       - name: Run a one-line script
         run: |
           echo 'hello world-${{env.BRNCH_NAME}}' > abc.txt
-          git config --global user.email "bilal.shahzad@yahoo.com"
-          git config --global user.name "Bilal Shahzad"
-          git checkout -b ${{env.BRNCH_NAME}} main && git branch -a
-          git add .
-          git commit -m "testing"
-          git push --set-upstream origin ${{env.BRNCH_NAME}}
-                    
-      - name: pull-request
-        id: open-pr
-        uses: repo-sync/pull-request@v2        
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
         with:
-          source_branch: ${{env.BRNCH_NAME}}
-          destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_label: "feature, automated pr"
-          pr_title: "[Example] Simple demo"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update report
+          committer: GitHub <noreply@github.com>
+          branch: ${{env.BRNCH_NAME}}
+          title: '[Example] Update report'
+
       
-      - name: Enable Auto Merge
-        run: |
-          echo ${{steps.open-pr.outputs.pr_number}}
-          echo ${{ secrets.GITHUB_TOKEN }} > myghtoken.txt
-          gh auth login --with-token < myghtoken.txt
-          gh pr merge ${{steps.open-pr.outputs.pr_number}} --auto
-     
 
 
