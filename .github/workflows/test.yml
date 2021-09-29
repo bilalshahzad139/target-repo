@@ -33,13 +33,17 @@ jobs:
           git push --set-upstream origin ${{env.BRNCH_NAME}}
                     
       - name: pull-request
-        uses: repo-sync/pull-request@v2
+        id: open-pr
+        uses: repo-sync/pull-request@v2        
         with:
           source_branch: ${{env.BRNCH_NAME}}
           destination_branch: "main"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "feature, automated pr"
           pr_title: "[Example] Simple demo"
+      
+      - name: Enable Auto Merge
+        run: gh pr merge ${{steps.open-pr.outputs.pr_number}} --auto
      
 
 
