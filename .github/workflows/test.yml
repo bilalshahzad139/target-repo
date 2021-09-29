@@ -35,6 +35,8 @@ jobs:
           committer: GitHub <noreply@github.com>
           branch: ${{env.BRNCH_NAME}}
           title: '[Example] Update report'
+          delete-branch: true
+          
 
       
 
