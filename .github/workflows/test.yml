@@ -16,9 +16,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.My_SP_KEY }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: git checkout -b feature/123 main && git branch -a
+        run: |
+          git config --global user.email "bilal.shahzad@yahoo.com"
+          git config --global user.name "Bilal Shahzad"
+          git checkout -b feature/123 main && git branch -a
+          git commit --allow-empty -m "testing"
+          git push 
 
 
