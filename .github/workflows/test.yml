@@ -44,7 +44,7 @@ jobs:
       
       - name: Enable Auto Merge
         run: |
-          gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
+          gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
           gh pr merge ${{steps.open-pr.outputs.pr_number}} --auto
      
 
